@@ -23,12 +23,12 @@ function App() {
       }, [loadPrevious]);
 
       return (
-        //
+
         <div className='App'>
           <Router>
             <Routes>
                 <Route path="/enternumbers" element={<EnterNumbers/>} />
-                {/* <Route path="/previous" element={<PreviousList previous={previous}/>} /> */}
+                <Route path="/previous" element={<PreviousList previous={previous}/>} />
             </Routes>
           </Router>
         </div>
