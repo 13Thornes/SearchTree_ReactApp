@@ -1,25 +1,39 @@
-import logo from './logo.svg';
 import './App.css';
+import axios from "axios";
+import { useEffect, useState, useCallback } from "react";
+import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import {BASE_URL} from "./utils/config"
+import PreviousList from './components/previousList';
+import EnterNumbers from './components/enterNumbers';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+function App() { 
+
+  const [previous, setPrevious] = useState([]);
+  const loadPrevious = useCallback(async () => {
+    try {
+        const response = await axios.get(`${BASE_URL}/previous`);
+        setPrevious(response.data);
+    } catch (error) {
+        console.error("Error fetching previous trees:", error);
+    }
+        }, []);
+
+      useEffect(() => {
+        loadPrevious().then(() => console.log('Previous trees loaded'));
+      }, [loadPrevious]);
+
+      return (
+        //
+        <div className='App'>
+          <Router>
+            <Routes>
+                <Route path="/enternumbers" element={<EnterNumbers/>} />
+                {/* <Route path="/previous" element={<PreviousList previous={previous}/>} /> */}
+            </Routes>
+          </Router>
+        </div>
+      );
+
 }
 
 export default App;
