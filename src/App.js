@@ -5,6 +5,8 @@ import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import {BASE_URL} from "./utils/config"
 import PreviousList from './components/previousList';
 import EnterNumbers from './components/enterNumbers';
+import Header from './components/header';
+import Homepage from './components/homepage';
 
 function App() { 
 
@@ -25,8 +27,10 @@ function App() {
       return (
 
         <div className='App'>
+          <Header/>
           <Router>
             <Routes>
+                <Route path="/" element={<Homepage/>} />
                 <Route path="/enternumbers" element={<EnterNumbers/>} />
                 <Route path="/previous" element={<PreviousList previous={previous}/>} />
             </Routes>
